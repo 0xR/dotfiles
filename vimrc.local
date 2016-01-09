@@ -1,0 +1,96 @@
+let g:spf13_bundle_groups=['general', 'programming', 'misc', 'scala', 'youcompleteme']
+let g:syntastic_javascript_checkers = ['eslint', 'flow']
+let g:autoformat_autoindent = 0
+autocmd FileType javascript setlocal expandtab shiftwidth=2 softtabstop=2
+if has('gui_running')
+  set guifont=Source\ Code\ Pro\ for\ Powerline\ 10
+endif
+set ic
+set incsearch
+set nospell
+set iskeyword-=_
+set iskeyword-=\.
+" macro cahnge var mod = require('mod') to an import
+let @i='ddggP0dwdwwdwdwxifrom ^iimport $hxn'
+" macro to convert an anonymous JS function to an arrow
+let @f='dw%lDa => {lxn'
+set backupcopy=yes
+set autoread
+set relativenumber
+" autosave
+:au FocusLost * silent! wa
+nnoremap <leader>esf :!eslint % --fix
+nnoremap <leader>bo :BufOnly<CR>
+nnoremap <leader>bd :bd<CR>
+" disable vim-flow, using syntastic
+let g:flow#enable = 0
+let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
+
+" fugitive git bindings
+nnoremap <leader>ga :Git add %:p<CR><CR>
+nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gc :Gcommit -v -q<CR>
+nnoremap <leader>gt :Gcommit -v -q %:p<CR>
+nnoremap <leader>gd :Gdiff<CR>
+nnoremap <leader>ge :Gedit<CR>
+nnoremap <leader>gr :Gread<CR>
+nnoremap <leader>ghr :GitGutterRevertHunk<CR>
+nnoremap <leader>gw :Gwrite<CR><CR>
+nnoremap <leader>gl :silent! Glog<CR>:bot copen<CR>
+nnoremap <leader>gp :Ggrep<Space>
+nnoremap <leader>gm :Gmove<Space>
+nnoremap <leader>gb :Git branch<Space>
+nnoremap <leader>go :Git checkout<Space>
+nnoremap <leader>gps :Dispatch! git push<CR>
+nnoremap <leader>gpl :Dispatch! git pull<CR>
+
+" ycm
+nnoremap <leader>d :YcmCompleter GoToDefinition<CR>
+let g:UltiSnipsExpandTrigger = "<nop>"
+let g:ulti_expand_or_jump_res = 0
+function ExpandSnippetOrCarriageReturn()
+    let snippet = UltiSnips#ExpandSnippetOrJump()
+    if g:ulti_expand_or_jump_res > 0
+        return snippet
+    else
+        return "\<CR>"
+    endif
+endfunction
+inoremap <expr> <CR> pumvisible() ? "<C-R>=ExpandSnippetOrCarriageReturn()<CR>" : "\<CR>"
+
+
+
+" tell it to use an undo file
+set undofile
+" set a directory to store the undo history
+set undodir=/home/rjs/.vim/undo/
+
+" ------------------------------------------------------------------
+" Solarized Colorscheme Config
+" ------------------------------------------------------------------
+let g:solarized_termtrans=1    "default value is 0
+let g:solarized_termcolors=256    "default value is 16
+syntax enable
+set background=dark
+colorscheme solarized
+" ------------------------------------------------------------------
+
+" The following items are available options, but do not need to be
+" included in your .vimrc as they are currently set to their defaults.
+
+" let g:solarized_degrade=0
+" let g:solarized_bold=1
+" let g:solarized_underline=1
+" let g:solarized_italic=1
+let g:solarized_contrast="high"
+" let g:solarized_visibility="normal"
+" let g:solarized_diffmode="normal"
+" let g:solarized_hitrail=0
+" let g:solarized_menu=1
+
+" cursor shape xfce4-terminal
+if has("autocmd")
+  au InsertEnter * silent execute "!sed -i.bak -e 's/TERMINAL_CURSOR_SHAPE_BLOCK/TERMINAL_CURSOR_SHAPE_IBEAM/' ~/.config/xfce4/terminal/terminalrc"
+  au InsertLeave * silent execute "!sed -i.bak -e 's/TERMINAL_CURSOR_SHAPE_IBEAM/TERMINAL_CURSOR_SHAPE_BLOCK/' ~/.config/xfce4/terminal/terminalrc"
+  au VimLeave * silent execute "!sed -i.bak -e 's/TERMINAL_CURSOR_SHAPE_IBEAM/TERMINAL_CURSOR_SHAPE_BLOCK/' ~/.config/xfce4/terminal/terminalrc"
+endif
