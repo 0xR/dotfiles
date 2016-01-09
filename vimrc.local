@@ -19,6 +19,7 @@ set autoread
 set relativenumber
 " autosave
 :au FocusLost * silent! wa
+let g:tmux_navigator_save_on_switch = 1
 nnoremap <leader>esf :!eslint % --fix
 nnoremap <leader>bo :BufOnly<CR>
 nnoremap <leader>bd :bd<CR>
