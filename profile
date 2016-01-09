@@ -6,8 +6,6 @@ export PIP_VIRTUALENV_BASE=$WORKON_HOME
 export PIP_RESPECT_VIRTUALENV=true
 source $(which virtualenvwrapper.sh)
 
-REBB_ORDER_OHM_ENDPOINT_ROOT_URI=http://ohm.developmentci.rebb.baseless.nl/
-
 export ANSIBLE_ROLES_PATH=/home/rjs/workspaces/wehkamp/rebb-ansible-roles
 
 function gotossh() {
