@@ -1,0 +1,18 @@
+[core]
+	autocrlf = input
+	excludesfile = /home/rjs/.gitignore_global
+[user]
+	name = Ruben Oostinga
+	email = roostinga@xebia.com
+[push]
+	default = current
+[url "https://"]
+	insteadOf = git://
+[diff]
+	external = vimdiff
+	tool = vimdiff
+[merge]
+	conflictstyle = diff3
+	tool = vimdiff
+[difftool]
+	prompt = false
