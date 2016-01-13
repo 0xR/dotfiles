@@ -27,7 +27,10 @@ alias clipp='xclip -selection clipboard -o'
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
 
-source ~/.nvm/nvm.sh
+if [ -f ~/.nvm/nvm.sh ]
+then
+  source ~/.nvm/nvm.sh
+fi
 
 export REBB_WEBSITE_DEVELOPMENT=true
 export NODE_ENV=development
