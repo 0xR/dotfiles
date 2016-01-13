@@ -1,5 +1,5 @@
 let g:spf13_bundle_groups=['general', 'programming', 'misc', 'scala', 'youcompleteme']
-let g:syntastic_javascript_checkers = ['eslint', 'flow']
+let g:syntastic_javascript_checkers = ['eslint']
 let g:autoformat_autoindent = 0
 autocmd FileType javascript setlocal expandtab shiftwidth=2 softtabstop=2
 if has('gui_running')
@@ -42,8 +42,8 @@ nnoremap <leader>gp :Ggrep<Space>
 nnoremap <leader>gm :Gmove<Space>
 nnoremap <leader>gb :Git branch<Space>
 nnoremap <leader>go :Git checkout<Space>
-nnoremap <leader>gps :Dispatch! git push<CR>
-nnoremap <leader>gpl :Dispatch! git pull<CR>
+nnoremap <leader>gps :! git push<CR>
+nnoremap <leader>gpl :! git pull<CR>
 
 " ycm
 nnoremap <leader>d :YcmCompleter GoToDefinition<CR>
