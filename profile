@@ -4,7 +4,7 @@ export VIRTUALENVWRAPPER_PYTHON=$(which python2)
 export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
 export PIP_VIRTUALENV_BASE=$WORKON_HOME
 export PIP_RESPECT_VIRTUALENV=true
-source $(which virtualenvwrapper.sh)
+which virtualenvwrapper.sh > /dev/null && source $(which virtualenvwrapper.sh)
 
 export ANSIBLE_ROLES_PATH=/home/rjs/workspaces/wehkamp/rebb-ansible-roles
 
@@ -42,11 +42,11 @@ alias offsets_production='ssh $(li | awk '\''$3=="production" && $4=="queue-node
 
 export PATH=/opt/android-sdk/platform-tools:$PATH
 
-eval $(thefuck --alias)
+which thefuck > /dev/null && eval $(thefuck --alias)
 
 alias sbt='sbt -mem 2048'
 
-if [ -n "$DISPLAY" -a "$TERM" == "xterm" ]; then
+if [ "$TERM" == "xterm" ]; then
     export TERM=xterm-256color
 fi
 
