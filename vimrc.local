@@ -1,7 +1,15 @@
-let g:spf13_bundle_groups=['general', 'programming', 'misc', 'scala', 'youcompleteme']
-let g:syntastic_javascript_checkers = ['eslint']
+let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_css_enabled_makers = ['stylelint']
+let g:neomake_python_enabled_makers = ['flake8']
+autocmd! BufWritePost * Neomake
 let g:autoformat_autoindent = 0
 autocmd FileType javascript setlocal expandtab shiftwidth=2 softtabstop=2
+autocmd FileType python setlocal expandtab shiftwidth=4 softtabstop=4
+autocmd FileType yaml setlocal expandtab shiftwidth=2 softtabstop=2
+autocmd FileType html setlocal expandtab shiftwidth=2 softtabstop=2
+autocmd FileType groovy setlocal expandtab shiftwidth=2 softtabstop=2
+autocmd FileType scss setlocal expandtab shiftwidth=2 softtabstop=2
+autocmd FileType css setlocal expandtab shiftwidth=2 softtabstop=2
 if has('gui_running')
   set guifont=Source\ Code\ Pro\ for\ Powerline\ 10
 endif
@@ -14,14 +22,27 @@ set iskeyword-=\.
 let @i='ddggP0dwdwwdwdwxifrom ^iimport $hxn'
 " macro to convert an anonymous JS function to an arrow
 let @f='dw%lDa => {lxn'
+" macro to add spaces in a javascript object
+let @s=']}i l%a '
+" macro to put a newline after the next comma
+let @n='f,a'
 set backupcopy=yes
 set autoread
 set relativenumber
+
 " autosave
+" set updatetime=500
+"let g:auto_save_no_updatetime = 1  " do not change the 'updatetime' option
+let g:auto_save = 0  " enable AutoSave on Vim startup
+
+" vim-scratch
+let g:scratch_insert_autohide = 0
+
 :au FocusLost * silent! wa
 let g:tmux_navigator_save_on_switch = 1
-nnoremap <leader>esf :!eslint % --fix
+nnoremap <leader>esf :!$(npm bin)/eslint % --fix<CR>
 nnoremap <leader>bo :BufOnly<CR>
+nnoremap <leader>q :qa<CR>
 nnoremap <leader>bd :bd<CR>
 " disable vim-flow, using syntastic
 let g:flow#enable = 0
@@ -43,8 +64,16 @@ nnoremap <leader>gm :Gmove<Space>
 nnoremap <leader>gb :Git branch<Space>
 nnoremap <leader>go :Git checkout<Space>
 nnoremap <leader>gps :! git push<CR>
-nnoremap <leader>gpl :! git pull<CR>
+noremap <leader>gpl :! git pull<CR>
 
+nmap <Leader>1 :diffget LOCAL<CR>
+map <Leader>2 :diffget BASE<CR>
+map <Leader>3 :diffget REMOTE<CR>
+
+map <Leader>nt :tabe %<CR>
+
+nnoremap ]c :GitGutterNextHunk<CR>
+nnoremap [c :GitGutterPrevHunk<CR>
 " ycm
 nnoremap <leader>d :YcmCompleter GoToDefinition<CR>
 let g:UltiSnipsExpandTrigger = "<nop>"
@@ -59,8 +88,6 @@ function ExpandSnippetOrCarriageReturn()
 endfunction
 inoremap <expr> <CR> pumvisible() ? "<C-R>=ExpandSnippetOrCarriageReturn()<CR>" : "\<CR>"
 
-
-
 " tell it to use an undo file
 set undofile
 " set a directory to store the undo history
@@ -74,24 +101,39 @@ let g:solarized_termcolors=256    "default value is 16
 syntax enable
 set background=dark
 colorscheme solarized
-" ------------------------------------------------------------------
-
-" The following items are available options, but do not need to be
-" included in your .vimrc as they are currently set to their defaults.
-
-" let g:solarized_degrade=0
-" let g:solarized_bold=1
-" let g:solarized_underline=1
-" let g:solarized_italic=1
 let g:solarized_contrast="high"
-" let g:solarized_visibility="normal"
-" let g:solarized_diffmode="normal"
-" let g:solarized_hitrail=0
-" let g:solarized_menu=1
 
-" cursor shape xfce4-terminal
-if has("autocmd")
-  au InsertEnter * silent execute "!sed -i.bak -e 's/TERMINAL_CURSOR_SHAPE_BLOCK/TERMINAL_CURSOR_SHAPE_IBEAM/' ~/.config/xfce4/terminal/terminalrc"
-  au InsertLeave * silent execute "!sed -i.bak -e 's/TERMINAL_CURSOR_SHAPE_IBEAM/TERMINAL_CURSOR_SHAPE_BLOCK/' ~/.config/xfce4/terminal/terminalrc"
-  au VimLeave * silent execute "!sed -i.bak -e 's/TERMINAL_CURSOR_SHAPE_IBEAM/TERMINAL_CURSOR_SHAPE_BLOCK/' ~/.config/xfce4/terminal/terminalrc"
+" When you’re pressing Escape to leave insert mode in the terminal, it will by
+" default take a second or another keystroke to leave insert mode completely
+" and update the statusline. This fixes that. I got this from:
+" https://powerline.readthedocs.org/en/latest/tipstricks.html#vim
+if !has('gui_running')
+  set ttimeoutlen=10
+  augroup FastEscape
+    autocmd!
+    au InsertEnter * set timeoutlen=0
+    au InsertLeave * set timeoutlen=1000
+  augroup END
 endif
+
+" javascript
+au FileType javascript nnoremap <leader>tr :TernRename<CR>
+au FileType javascript nnoremap <leader>tt :TernType<CR>
+
+" elm-vim
+autocmd FileType elm setlocal expandtab shiftwidth=2 softtabstop=2
+
+au FileType elm nmap <leader>b :!elm-make-main<CR>
+au FileType elm nmap <leader>m :!elm-make-main<CR>
+au FileType elm nmap <leader>t <Plug>(elm-test)
+au FileType elm nmap <leader>r <Plug>(elm-repl)
+au FileType elm nmap <leader>e <Plug>(elm-error-detail)
+au FileType elm nmap <leader>d <Plug>(elm-show-docs)
+au FileType elm nmap <leader>w <Plug>(elm-browse-docs)
+au FileType elm nmap <leader>f :ElmFormat<CR>
+
+" javascript
+au FileType javascript nnoremap <leader>tr :TernRename<CR>
+au FileType javascript nnoremap <leader>tt :TernType<CR>
+
+

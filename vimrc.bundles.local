@@ -10,3 +10,26 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'ternjs/tern_for_vim'
 Plugin 'tmhedberg/matchit'
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'vim-scripts/vim-auto-save'
+Plugin 'mtth/scratch.vim'
+Plugin 'benjie/neomake-local-eslint.vim'
+Plugin 'ElmCast/elm-vim'
+if count(g:spf13_bundle_groups, 'programming.local')
+    " Pick one of the checksyntax, jslint, or syntastic
+    Plugin 'benekastah/neomake'
+    Bundle 'tpope/vim-fugitive'
+    Bundle 'mattn/webapi-vim'
+    Bundle 'mattn/gist-vim'
+    Bundle 'scrooloose/nerdcommenter'
+    Bundle 'tpope/vim-commentary'
+    Bundle 'godlygeek/tabular'
+    Bundle 'luochen1990/rainbow'
+    if executable('ctags')
+        Bundle 'majutsushi/tagbar'
+    endif
+endif
+
+Plugin 'vim-scripts/groovy.vim'
+Plugin 'elixir-lang/vim-elixir'
+Plugin 'thinca/vim-ref'
+Plugin 'awetzel/elixir.nvim'
