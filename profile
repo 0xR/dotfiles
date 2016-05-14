@@ -46,7 +46,7 @@ alias sbt='sbt -mem 2048'
 alias vim='nvim'
 alias vi='nvim'
 
-if [ "$TERM" == "xterm" ]; then
+if [ "$TERM" = "xterm" ]; then
     export TERM=xterm-256color
 fi
 
@@ -54,7 +54,7 @@ fi
 stty -ixon
 
 function mountvirtualenvs() {
-  ef mount | grep -q virtualenvs
+  if mount | grep -q virtualenvs
   then
     echo "already mounted virtualenvs"
   else
