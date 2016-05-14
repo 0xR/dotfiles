@@ -100,7 +100,6 @@ export PATH=/home/rjs/.cabal/bin:$PATH:/home/rjs/.gem/ruby/2.2.0/bin
 
 export EDITOR=vim
 
-source ~/.bash_aliases
 source ~/.profile
 
 if [ -z "$TMUX" ]
